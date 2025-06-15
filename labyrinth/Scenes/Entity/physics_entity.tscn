@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://bgy3kilattexq"]
+
+[ext_resource type="Script" path="res://Scenes/Entity/physics_entity.gd" id="1_5pfw7"]
+[ext_resource type="Texture2D" uid="uid://bm02a62w8omlk" path="res://assets/images/vecteezy_geometric-design-element_21048535.png" id="2_guj3i"]
+[ext_resource type="FontFile" uid="uid://bbogphuoyh2lq" path="res://assets/fonts/gemunu-libre-v8-latin-700.ttf" id="3_il4ry"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dxgws"]
+radius = 34.0588
+
+[sub_resource type="LabelSettings" id="LabelSettings_jl4fq"]
+font = ExtResource("3_il4ry")
+font_size = 30
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="PhysicsEntity" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_5pfw7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.261799
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("2_guj3i")
+offset = Vector2(-327, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dxgws")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="WallDetector" type="RayCast2D" parent="."]
+target_position = Vector2(176, -132)
+collision_mask = 2
+
+[node name="EntityNo" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 37.0
+offset_bottom = 33.0
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "###"
+label_settings = SubResource("LabelSettings_jl4fq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
